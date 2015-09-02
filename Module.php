@@ -12,6 +12,8 @@ class Module
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+        $serviceManager = $e->getApplication()->getServiceManager();
+        $themeManager = $serviceManager->get('ThemeManagerFactory');
     }
 
     public function getConfig()
@@ -27,6 +29,15 @@ class Module
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ),
             ),
+        );
+    }
+
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                'ThemeManagerFactory' => 'OmlZf2ThemeManager\Service\Factory\ThemeManagerFactory'
+            )
         );
     }
 }
