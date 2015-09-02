@@ -32,6 +32,13 @@ class ThemeHydrator
     protected $publicAssetPath = null;
 
     /**
+     * Public Directory Path
+     *
+     * @var|string
+     */
+    protected $publicDirectoryPath = null;
+
+    /**
      * Set Theme Name
      */
     public function setName($name)
@@ -80,6 +87,23 @@ class ThemeHydrator
     public function getPublicAssetPath()
     {
         return $this->publicAssetPath;
+    }
+
+    /**
+     * Set Public Directory Path
+     */
+    public function setPublicDirectoryPath($publicDirectoryPath)
+    {
+        $this->publicDirectoryPath = $publicDirectoryPath;
+        return $this;
+    }
+
+    /**
+     * Get Public Directory Path
+     */
+    public function getPublicDirectoryPath()
+    {
+        return $this->publicDirectoryPath;
     }
 
     /**
