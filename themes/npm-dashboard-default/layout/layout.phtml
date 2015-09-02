@@ -1,56 +1,117 @@
 <?php $publicAssetPath = $this->omlZf2ThemeManager()->init('active.theme')->get('public.asset.path'); ?>
 <?php echo $this->doctype(); ?>
-
-<html lang="en">
+<html lang="en" class="no-touch">
     <head>
         <meta charset="utf-8">
-        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
-
-        <?php echo $this->headMeta()
-            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
-            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        <?php
+            /**
+             * Initialize Head title.
+             */
+            $this->headTitle('Atlas - '. $this->translate('CMS'))->setSeparator(' - ')->setAutoEscape(false);
+            /**
+             * Initialize Meta tags.
+             */
+            $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0')
+                 ->appendHttpEquiv('X-UA-Compatible', 'IE=edge,chrome=1');
+            $this->headMeta()->appendName('description', $this->translate('NPM Technologies'));
+            $this->headMeta()->appendName('author', 'NPM');
+            /**
+             * Favico
+             */
+            $this->headLink(array('rel' => 'shortcut icon', 'href' => $this->basePath($publicAssetPath).'images/favicon.ico'));
+            $this->headLink(array('rel' => 'apple-touch-icon', 'href' => '/apple-touch-icon.png'));
+            /**
+             * Style Sheet.
+             */
+            $this->headLink()->appendStylesheet($this->basePath($publicAssetPath).'css/bootstrap.css');
+            $this->headLink()->appendStylesheet($this->basePath($publicAssetPath).'css/font-awesome.min.css');
+            $this->headLink()->appendStylesheet($this->basePath($publicAssetPath).'css/jquery-ui.css');
+            $this->headLink()->appendStylesheet($this->basePath($publicAssetPath).'css/animate.css');
+            $this->headLink()->appendStylesheet($this->basePath($publicAssetPath).'css/datatable.css');
+            $this->headLink()->appendStylesheet($this->basePath($publicAssetPath).'css/select2.css');
+            $this->headLink()->appendStylesheet($this->basePath($publicAssetPath).'css/jquery.fancybox-1.3.4.css');
+            $this->headLink()->appendStylesheet($this->basePath($publicAssetPath).'css/ladda.min.css');
+            $this->headLink()->appendStylesheet($this->basePath($publicAssetPath).'css/style.css');
+            /**
+             * Javascript
+             */
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/jquery.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/jquery-migrate-1.2.1.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/bootstrap.min.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/jquery.uniform.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/footable.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/jquery.dataTables.min.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/jquery.validate.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/select2.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/jquery.fakecrop.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/jquery.fancybox-1.3.4.pack.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/jquery.flot.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/jquery.flot.tooltip.min.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/jquery.flot.resize.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/jquery.flot.pie.resize.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/jquery.flot.animator.min.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/jquery.flot.growraf.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/jquery.flot.fillbetween.min.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/jquery.flot.stack.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/jquery.flot.spline.min.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/jquery.flot.selection.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/jquery.flot.time.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/custom.datatable.js');
+            
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/jquery-ui.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/spin.min.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/ladda.min.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/classie.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/script.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/custom.js');
+            $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/custom.ajax.js');
+            /**
+             * Render Head Elements.
+             */
+            echo $this->headTitle();
+            echo $this->headMeta();
+            echo $this->headLink();
+            echo $this->headStyle();
+            echo $this->headScript();
         ?>
-
-        <!-- Le styles -->
-        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => '/'.OmlZf2Common\Model\Constant::THEME_PATH.$this->basePath() . 'img/favicon.ico'))
-                        ->prependStylesheet($this->basePath($publicAssetPath.'css/style.css'))
-                        ->prependStylesheet($this->basePath($publicAssetPath.'css/bootstrap-theme.min.css'))
-                        ->prependStylesheet($this->basePath($publicAssetPath.'css/bootstrap.min.css')) ?>
-
-        <!-- Scripts -->
-        <?php echo $this->headScript()
-            ->prependFile($this->basePath($publicAssetPath.'js/bootstrap.min.js'))
-            ->prependFile($this->basePath($publicAssetPath.'js/jquery.min.js'))
-            ->prependFile($this->basePath($publicAssetPath.'js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
-            ->prependFile($this->basePath($publicAssetPath.'js/html5shiv.min.js'),   'text/javascript', array('conditional' => 'lt IE 9',))
-        ; ?>
-
     </head>
     <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('img/zf2-logo.png') ?>" alt="Zend Framework 2"/>&nbsp;<?php echo $this->translate('Skeleton Application') ?></a>
-                </div>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
-                    </ul>
-                </div><!--/.nav-collapse -->
+        <div id="preloader">
+            <div id="status">
+                <img src="<?php echo $this->basePath($publicAssetPath.'images/loader.gif'); ?>"/>
             </div>
-        </nav>
-        <div class="container">
-            <?php echo $this->content; ?>
-            <hr>
-            <footer>
-                <p>&copy; 2005 - <?php echo date('Y') ?> by Zend Technologies Ltd. <?php echo $this->translate('All rights reserved.') ?></p>
-            </footer>
-        </div> <!-- /container -->
-        <?php echo $this->inlineScript() ?>
+        </div> 
+        <section id="container">
+            <aside>
+                <div id="sidebar" class="nav-collapse">
+                    <?php //echo $this->navigation('navigation')->menu()->setPartial('navigation/left'); ?>
+                </div>
+            </aside>
+            <section id="main-content">
+                <section class="wrapper">
+                    <?php //echo $this->partial('toolbar'); ?>
+                    <div class="wrapper_widget">
+                        <div class="menu"></div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="widgetitle">
+                                        <div class="row">
+                                            <?php echo $this->placeholder('widgets/page-info'); ?>
+                                            <?php echo $this->placeholder('widgets/action-menu'); ?>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php echo $this->placeholder('widgets/breadcrumb'); ?>
+                        </div>
+                        <div class="container-fluid margin_bottom_xlarge margin_top_small">
+                            <?php echo $this->content; ?>
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <?php echo $this->placeholder('sidebar-right'); ?>
+        </section>
     </body>
 </html>

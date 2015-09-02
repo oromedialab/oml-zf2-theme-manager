@@ -15,7 +15,7 @@ return array(
         )
     ),
     'oml-zf2-theme-manager' => array(
-        'active'  => 'bootstrap-default-zf2',
+        'active'  => 'npm-dashboard-default',
         'public_directory_path' => __DIR__.'/../../../../public',
         'themes' => array(
             'npm-dashboard-default' => array(
