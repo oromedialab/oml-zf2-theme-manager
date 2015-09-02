@@ -56,10 +56,14 @@ class ThemeManager
         if (!isset($options['themes']) || !is_array($options['themes'])) {
             throw new \Exception('[themes] is not set or not an array');
         }
+        if (!array_key_exists('public_directory_path', $options) || !is_dir($options['public_directory_path'])) {
+            throw new \Exception('public_directory_path is not defined or invalid directory path');
+        }
         $themeCollection = new ThemeCollection;
         foreach ($options['themes'] as $themeName => $themeConfig) {
             $themeHyrdator = new ThemeHydrator;
             $themeHyrdator->fromArray($themeConfig);
+            $themeHyrdator->setPublicDirectoryPath($options['public_directory_path']);
             $themeValidator = new ThemeValidator;
             $themeValidator->setThemeHydrator($themeHyrdator);
             if (!$themeValidator->isValid()) {
