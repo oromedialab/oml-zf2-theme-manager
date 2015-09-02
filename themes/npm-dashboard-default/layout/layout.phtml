@@ -1,3 +1,4 @@
+<?php $publicAssetPath = $this->omlZf2ThemeManager()->init('active.theme')->get('public.asset.path'); ?>
 <?php echo $this->doctype(); ?>
 
 <html lang="en">
@@ -12,16 +13,16 @@
 
         <!-- Le styles -->
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => '/'.OmlZf2Common\Model\Constant::THEME_PATH.$this->basePath() . 'img/favicon.ico'))
-                        ->prependStylesheet($this->basePath(OmlZf2Common\Model\Constant::THEME_PATH.'css/style.css'))
-                        ->prependStylesheet($this->basePath(OmlZf2Common\Model\Constant::THEME_PATH.'css/bootstrap-theme.min.css'))
-                        ->prependStylesheet($this->basePath(OmlZf2Common\Model\Constant::THEME_PATH.'css/bootstrap.min.css')) ?>
+                        ->prependStylesheet($this->basePath($publicAssetPath.'css/style.css'))
+                        ->prependStylesheet($this->basePath($publicAssetPath.'css/bootstrap-theme.min.css'))
+                        ->prependStylesheet($this->basePath($publicAssetPath.'css/bootstrap.min.css')) ?>
 
         <!-- Scripts -->
         <?php echo $this->headScript()
-            ->prependFile($this->basePath(OmlZf2Common\Model\Constant::THEME_PATH.'js/bootstrap.min.js'))
-            ->prependFile($this->basePath(OmlZf2Common\Model\Constant::THEME_PATH.'js/jquery.min.js'))
-            ->prependFile($this->basePath(OmlZf2Common\Model\Constant::THEME_PATH.'js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
-            ->prependFile($this->basePath(OmlZf2Common\Model\Constant::THEME_PATH.'js/html5shiv.min.js'),   'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath($publicAssetPath.'js/bootstrap.min.js'))
+            ->prependFile($this->basePath($publicAssetPath.'js/jquery.min.js'))
+            ->prependFile($this->basePath($publicAssetPath.'js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath($publicAssetPath.'js/html5shiv.min.js'),   'text/javascript', array('conditional' => 'lt IE 9',))
         ; ?>
 
     </head>
