@@ -45,9 +45,10 @@ class ThemeValidator
             );
         }
         $publicAssetPath = $themeHydrator->getPublicAssetPath();
-        if (empty($publicAssetPath) || !is_dir($publicAssetPath)) {
+        $publicDirectoryPath = $themeHydrator->getPublicDirectoryPath();
+        if (empty($publicAssetPath) || !is_dir($publicDirectoryPath.'/'.$publicAssetPath)) {
             throw new \Exception(
-                __NAMESPACE__.' requires "public_asset_path" to be valid path to a directory in order to resolve'
+                __NAMESPACE__.' requires "public_asset_path" and "public_direcory_path" to be valid path to a directory in order to resolve'
             );
         }
         return true;
