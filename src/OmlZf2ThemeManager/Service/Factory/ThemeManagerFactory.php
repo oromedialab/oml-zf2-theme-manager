@@ -22,13 +22,13 @@ class ThemeManagerFactory implements FactoryInterface
         	throw new \Exception('Missing configuration parameter for "oml-zf2-theme-manager"');
         }
         $themeConfig = $config['oml-zf2-theme-manager'];
-        if (!array_key_exists('active', $themeConfig)) {
+        if (!array_key_exists('active_theme', $themeConfig)) {
         	throw new Exception('There must be atleast one active theme set for "oml-zf2-theme-manager"');	
         }
         /**
          * If specified active theme is not present in list of available theme, throw an exception
          */
-        $activeThemeName = $themeConfig['active'];
+        $activeThemeName = $themeConfig['active_theme'];
         $activeThemeIsAvailable = false;
         foreach ($themeConfig['themes'] as $themeName => $config) {
             if ($activeThemeName == $themeName) {

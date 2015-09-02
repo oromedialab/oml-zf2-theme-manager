@@ -15,28 +15,49 @@ return array(
         )
     ),
     'oml-zf2-theme-manager' => array(
-        'active'  => 'npm-dashboard-default',
+        'active_theme'  => 'npm-dashboard',
         'public_directory_path' => __DIR__.'/../../../../public',
         'themes' => array(
-            'npm-dashboard-default' => array(
-                'name' => 'NPM Dashboard - Default',
-                'template_path' => __DIR__.'/../themes/npm-dashboard-default',
-                'public_asset_path' => 'themes/npm-dashboard-default/'
+            'npm-dashboard' => array(
+                'name' => 'NPM Dashboard',
+                'template_path' => __DIR__.'/../templates/npm-dashboard/',
+                'public_asset_path' => 'themes/npm-dashboard/assets/',
+                'styles' => array(
+                    'active_style' => 'orange',
+                    'styles_asset_path' => 'themes/npm-dashboard/styles/',
+                    'list' => array(
+                        'orange' => array(
+                            'style_name' => 'NPM Dashboard - Orange',
+                            'load_assets' => array(
+                                'css' => array(
+                                    'orange/css/npm.dashboard.orange.css'
+                                )
+                            )
+                        ),
+                        'blue' => array(
+                            'style_name' => 'NPM Dashboard - Blue',
+                            'load_assets' => array(
+                                'css' => array(
+                                    'blue/css/npm.dashboard.blue.css'
+                                )
+                            )
+                        ),
+                        'green' => array(
+                            'style_name' => 'NPM Dashboard - Green',
+                            'load_assets' => array(
+                                'css' => array(
+                                    'green/css/npm.dashboard.green.css'
+                                )
+                            )
+                        )
+                    )
+                )
             ),
-            'npm-dashboard-blue' => array(
-                'name' => 'NPM Dashboard - Blue',
-                'template_path' => __DIR__.'/../themes/npm-dashboard-blue',
-                'public_asset_path' => 'themes/npm-dashboard-blue/'
-            ),
-            'npm-dashboard-green' => array(
-                'name' => 'NPM Dashboard - Green',
-                'template_path' => __DIR__.'/../themes/npm-dashboard-green',
-                'public_asset_path' => 'themes/npm-dashboard-green/'
-            ),
-            'bootstrap-default-zf2' => array(
+            'bootstrap' => array(
                 'name' => 'Default Bootstrap Theme for ZF2',
-                'template_path' => __DIR__.'/../themes/bootstrap-default-zf2',
-                'public_asset_path' => 'themes/bootstrap-default-zf2/'
+                'template_path' => __DIR__.'/../templates/bootstrap',
+                'public_asset_path' => 'themes/bootstrap/',
+                'styles' => false
             )
         )
     )
