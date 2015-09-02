@@ -25,6 +25,13 @@ class ThemeHydrator
     protected $templatePath = null;
 
     /**
+     * Theme Styles (orange, blue, green etc.)
+     *
+     * @var|string
+     */
+    protected $styles = false;
+
+    /**
      * Public Asset Path
      *
      * @var|string
@@ -104,6 +111,23 @@ class ThemeHydrator
     public function getPublicDirectoryPath()
     {
         return $this->publicDirectoryPath;
+    }
+
+    /**
+     * Set Theme Styles
+     */
+    public function setStyles($styles)
+    {
+        $this->styles = $styles;
+        return $this;
+    }
+
+    /**
+     * Get Theme Styles
+     */
+    public function getStyles()
+    {
+        return $this->styles;
     }
 
     /**

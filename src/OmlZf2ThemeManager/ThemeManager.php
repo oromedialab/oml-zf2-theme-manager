@@ -50,7 +50,7 @@ class ThemeManager
         $this->serviceManager = $serviceManager;
         $this->options = $options;
         $activeThemeAvailableInCollection = false;
-        if (!isset($options['active'])) {
+        if (!isset($options['active_theme'])) {
             throw new \Exception('There must be one active theme set');
         }
         if (!isset($options['themes']) || !is_array($options['themes'])) {
@@ -71,14 +71,14 @@ class ThemeManager
             }
             $themeCollection->setThemeHydrator($themeValidator->getThemeHydrator());
             // Assign & ValidateActive Theme
-            if ($options['active'] === $themeName) {
+            if ($options['active_theme'] === $themeName) {
                 $this->activeTheme = $themeHyrdator;
                 $activeThemeAvailableInCollection = true;
             }
         }
         // Throw exception if active theme does not match the collection
         if (false === $activeThemeAvailableInCollection) {
-            throw new \Exception('Unable to resolve active theme "'.$options['active'].'" in the collection');
+            throw new \Exception('Unable to resolve active theme "'.$options['active_theme'].'" in the collection');
         }
         $this->themeCollection = $themeCollection;
         // Resolve templates for active theme
