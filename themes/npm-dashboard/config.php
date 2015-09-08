@@ -17,7 +17,7 @@ return array(
     ),
     'public_asset_path' => 'themes/npm-dashboard/assets/',
     'style' => array(
-        'active' => 'blue',
+        'active' => 'orange',
         'style_asset_path' => 'themes/npm-dashboard/styles/',
         'collection' => array(
             array(
@@ -50,7 +50,10 @@ return array(
         )
     ),
     'assets' => array(
-        'favicon' => 'img/favicon.ico',
+        'favicon' => array(
+            'shortcut icon' => 'images/favicon.ico',
+            'apple-touch-icon' => 'images/apple-touch-icon.png'
+        ),
     	'css' => array(
     		'css/bootstrap.css',
     		'css/font-awesome.min.css',

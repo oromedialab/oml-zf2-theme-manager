@@ -18,8 +18,8 @@ return array(
     'public_asset_path' => 'themes/bootstrap/',
     'assets' => array(
         'favicon' => array(
-            'shortcut icon' => 'images/favicon.ico',
-            'apple-touch-icon' => 'apple-touch-icon.png'
+            'shortcut icon' => 'img/favicon.ico',
+            'apple-touch-icon' => 'img/apple-touch-icon.png'
         ),
     	'css' => array(
     		'css/style.css',

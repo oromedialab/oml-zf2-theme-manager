@@ -57,6 +57,13 @@ class Theme
     protected $publicAssetPath;
 
     /**
+     * Style Asset Path
+     *
+     * @var|string
+     */
+    protected $styleAssetPath;
+
+    /**
      * Theme Style Collection (orange, blue, green etc.)
      *
      * @var|obj
@@ -189,6 +196,23 @@ class Theme
     }
 
     /**
+     * Set Style Asset Path
+     */
+    public function setStyleAssetPath($styleAssetPath)
+    {
+        $this->styleAssetPath = $styleAssetPath;
+        return $this;
+    }
+
+    /**
+     * Get Style Asset Path
+     */
+    public function getStyleAssetPath()
+    {
+        return $this->styleAssetPath;
+    }
+
+    /**
      * Set Theme Style Collection
      */
     public function setStyleCollection(StyleCollection $styleCollection)
@@ -205,6 +229,12 @@ class Theme
         return $this->styleCollection;
     }
 
+    public function hasStyle()
+    {
+        $styleCollection = $this->getStyleCollection()->fetchAll();
+        return !empty($styleCollection) ? true : false;
+    }
+
     /**
      * Load Style Collection
      */
@@ -215,6 +245,7 @@ class Theme
         // If style exist for theme
         if (array_key_exists('style', $config)) {
             $activeStyleIdentifier = array_key_exists('active', $config['style']) ? $config['style']['active'] : null;
+            $this->styleAssetPath = array_key_exists('style_asset_path', $config['style']) ? $config['style']['style_asset_path'] : null;
             $activeStyle = null;
             foreach ($config['style']['collection'] as $styleConfig) {
                 $style = new Style($styleConfig);

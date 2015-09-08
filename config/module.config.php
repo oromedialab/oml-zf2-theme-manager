@@ -20,7 +20,7 @@ return array(
         )
     ),
     'oml-zf2-theme-manager' => array(
-        'active_theme'  => 'bootstrap',
+        'active_theme'  => 'npm-dashboard',
         'themes' => array(
             array(
                 'name' => 'NPM Dashboard',

@@ -47,12 +47,23 @@ class OmlZf2ThemeManager extends AbstractHelper
                 }
             }
         }
+        // Apply CSS from styles if available
+        if ($theme->hasStyle()) {
+            $activeStyle = $theme->getActiveStyle();
+            $assets = $activeStyle->getAssetCollection()->fetchAll();
+            foreach ($assets as $asset) {
+                if('css' === $asset->getType()) {
+                    $resource = $this->getView()->basePath($theme->getStyleAssetPath()).$asset->getResource();
+                    $this->getView()->headLink()->appendStylesheet($resource);
+                }
+            }
+        }
         return $this->getView()->headLink();
     }
 
     public function headStyle()
     {
-        // Render inbuilt view helper
+        return $this->getView()->headStyle();
     }
 
     public function headScript()
