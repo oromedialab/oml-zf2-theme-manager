@@ -17,7 +17,7 @@ return array(
     ),
     'public_asset_path' => 'themes/npm-dashboard/assets/',
     'style' => array(
-        'active' => 'orange',
+        'active' => 'blue',
         'style_asset_path' => 'themes/npm-dashboard/styles/',
         'collection' => array(
             array(
@@ -34,7 +34,7 @@ return array(
                 'identifier' => 'blue',
                 'load_assets' => array(
                     'css' => array(
-                        'orange/css/npm.dashboard.blue.css'
+                        'blue/css/npm.dashboard.blue.css'
                     )
                 )
             ),
@@ -43,7 +43,7 @@ return array(
                 'identifier' => 'green',
                 'load_assets' => array(
                     'css' => array(
-                        'orange/css/npm.dashboard.green.css'
+                        'green/css/npm.dashboard.green.css'
                     )
                 )
             )

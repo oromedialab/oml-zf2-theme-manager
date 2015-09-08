@@ -11,6 +11,7 @@ namespace OmlZf2ThemeManager;
 use OmlZf2ThemeManager\Style;
 use OmlZf2ThemeManager\Collection\StyleCollection;
 use OmlZf2ThemeManager\Collection\AssetCollection;
+use OmlZf2ThemeManager\Validator\StyleValidator;
 
 class Theme
 {
@@ -242,19 +243,21 @@ class Theme
     {
         $config = $this->getMergedConfig();
         $styleCollection = new StyleCollection();
-        // If style exist for theme
         if (array_key_exists('style', $config)) {
-            $activeStyleIdentifier = array_key_exists('active', $config['style']) ? $config['style']['active'] : null;
-            $this->styleAssetPath = array_key_exists('style_asset_path', $config['style']) ? $config['style']['style_asset_path'] : null;
-            $activeStyle = null;
-            foreach ($config['style']['collection'] as $styleConfig) {
-                $style = new Style($styleConfig);
-                $styleCollection->add($style);
-                if ($activeStyleIdentifier == $styleConfig['identifier']) {
-                    $activeStyle = $style;
+            $styleValidator = new StyleValidator($config);
+            if ($styleValidator->isValid()) {
+                $activeStyleIdentifier = array_key_exists('active', $config['style']) ? $config['style']['active'] : null;
+                $this->styleAssetPath = array_key_exists('style_asset_path', $config['style']) ? $config['style']['style_asset_path'] : null;
+                $activeStyle = null;
+                foreach ($config['style']['collection'] as $styleConfig) {
+                    $style = new Style($styleConfig);
+                    $styleCollection->add($style);
+                    if ($activeStyleIdentifier == $styleConfig['identifier']) {
+                        $activeStyle = $style;
+                    }
                 }
+                $this->setActiveStyle($activeStyle);
             }
-            $this->setActiveStyle($activeStyle);
         }
         $this->styleCollection = $styleCollection;
         return $this;

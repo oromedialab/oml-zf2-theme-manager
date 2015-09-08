@@ -6,28 +6,14 @@
             /**
              * Initialize Head title.
              */
-            $this->headTitle('Atlas - '. $this->translate('CMS'))->setSeparator(' - ')->setAutoEscape(false);
+            $this->omlZf2TM()->headTitle('Atlas - '. $this->translate('CMS'))->setSeparator(' - ')->setAutoEscape(false);
             /**
              * Initialize Meta tags.
              */
             $this->omlZf2TM()->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0')->appendHttpEquiv('X-UA-Compatible', 'IE=edge,chrome=1');
             $this->omlZf2TM()->headMeta()->appendName('description', $this->translate('NPM Technologies'));
             $this->omlZf2TM()->headMeta()->appendName('author', 'NPM');
-            /**
-             * Favico
-             */
-            // $this->headLink(array('rel' => 'shortcut icon', 'href' => $this->basePath($publicAssetPath).'images/favicon.ico'));
-            // $this->headLink(array('rel' => 'apple-touch-icon', 'href' => '/apple-touch-icon.png'));
-            /**
-             * Load Theme Style List
-             */
-            // foreach ($themeCssStyles['css'] as $css) {
-            //     $this->headLink()->appendStylesheet($this->basePath($themeCssStyles['styles_asset_path']).$css);
-            // }
 
-            /**
-             * Render Head Elements.
-             */
             echo $this->omlZf2TM()->headTitle();
             echo $this->omlZf2TM()->headMeta();
             echo $this->omlZf2TM()->headLink();
