@@ -15,49 +15,17 @@ return array(
         )
     ),
     'oml-zf2-theme-manager' => array(
-        'active_theme'  => 'npm-dashboard',
-        'public_directory_path' => __DIR__.'/../../../../public',
+        'active_theme'  => 'bootstrap',
         'themes' => array(
-            'npm-dashboard' => array(
+            array(
                 'name' => 'NPM Dashboard',
-                'template_path' => __DIR__.'/../templates/npm-dashboard/',
-                'public_asset_path' => 'themes/npm-dashboard/assets/',
-                'styles' => array(
-                    'active_style' => 'orange',
-                    'styles_asset_path' => 'themes/npm-dashboard/styles/',
-                    'list' => array(
-                        'orange' => array(
-                            'style_name' => 'NPM Dashboard - Orange',
-                            'load_assets' => array(
-                                'css' => array(
-                                    'orange/css/npm.dashboard.orange.css'
-                                )
-                            )
-                        ),
-                        'blue' => array(
-                            'style_name' => 'NPM Dashboard - Blue',
-                            'load_assets' => array(
-                                'css' => array(
-                                    'blue/css/npm.dashboard.blue.css'
-                                )
-                            )
-                        ),
-                        'green' => array(
-                            'style_name' => 'NPM Dashboard - Green',
-                            'load_assets' => array(
-                                'css' => array(
-                                    'green/css/npm.dashboard.green.css'
-                                )
-                            )
-                        )
-                    )
-                )
+                'identifier' => 'npm-dashboard',
+                'theme_path' => __DIR__.'/../themes/npm-dashboard',
             ),
-            'bootstrap' => array(
+            array(
                 'name' => 'Default Bootstrap Theme for ZF2',
-                'template_path' => __DIR__.'/../templates/bootstrap',
-                'public_asset_path' => 'themes/bootstrap/',
-                'styles' => false
+                'identifier' => 'bootstrap',
+                'theme_path' => __DIR__.'/../themes/bootstrap',
             )
         )
     )
