@@ -10,9 +10,7 @@ namespace OmlZf2ThemeManager\Service\Factory;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use OmlZf2ThemeManager\Initializer\ModuleInitializer;
-use OmlZf2ThemeManager\Validator\ModuleValidator;
-use OmlZf2ThemeManager\Manager\ThemeManager;
+use OmlZf2ThemeManager\Resolver\TemplateResolver;
 
 
 class ThemeManagerFactory implements FactoryInterface
@@ -23,11 +21,9 @@ class ThemeManagerFactory implements FactoryInterface
         if (!array_key_exists('oml-zf2-theme-manager', $appConfig)) {
         	throw new \Exception('Missing configuration parameter for "oml-zf2-theme-manager"');
         }
-        $moduleInitializer = new ModuleInitializer($appConfig['oml-zf2-theme-manager']);
-        $moduleValidator = new ModuleValidator($moduleInitializer);
-        if ($moduleValidator->isValid()) {
-            $manager = new ThemeManager($serviceLocator, $moduleInitializer);
-            return $manager;
-        }
+        $themeInitializer = $serviceLocator->get('omlzf2.themeinitializer')->init();
+        $templateResolver = new TemplateResolver($serviceLocator, $themeInitializer->getActiveTheme());
+        $templateResolver->resolve();
+        return $themeInitializer;
     }
 }

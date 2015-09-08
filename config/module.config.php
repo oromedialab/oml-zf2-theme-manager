@@ -9,9 +9,14 @@
 namespace OmlZf2ThemeManager;
 
 return array(
+    'service_manager' => array(
+        'invokables' => array(
+            'omlzf2.themeinitializer' => 'OmlZf2ThemeManager\Service\Invokable\ThemeInitializer',
+        )
+    ),
     'view_helpers' => array(
         'invokables' => array(
-            'omlZf2ThemeManager' => 'OmlZf2ThemeManager\View\Helper\ThemeInfo'
+            'omlZf2TM' => 'OmlZf2ThemeManager\View\Helper\OmlZf2ThemeManager'
         )
     ),
     'oml-zf2-theme-manager' => array(

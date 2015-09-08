@@ -247,6 +247,11 @@ class Theme
             $asset = new Asset('js', $resource);
             $assetCollection->add($asset);
         }
+        $favIcon = array_key_exists('favicon', $assets) ? $assets['favicon'] : null;
+        if (null != $favIcon) {
+            $asset = new Asset('favicon', $favIcon);
+            $assetCollection->add($asset);
+        }
         $this->assetCollection = $assetCollection;
         return $this;
     }

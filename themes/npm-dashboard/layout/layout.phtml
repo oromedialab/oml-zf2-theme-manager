@@ -72,14 +72,15 @@
             $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/script.js');
             $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/custom.js');
             $this->headScript()->appendFile($this->basePath($publicAssetPath) . 'js/custom.ajax.js');
+
             /**
              * Render Head Elements.
              */
-            echo $this->headTitle();
-            echo $this->headMeta();
-            echo $this->headLink();
-            echo $this->headStyle();
-            echo $this->headScript();
+            echo $this->omlZf2ThemeManager()->headTitle();
+            echo $this->omlZf2ThemeManager()->headMeta();
+            echo $this->omlZf2ThemeManager()->headLink();
+            echo $this->omlZf2ThemeManager()->headStyle();
+            echo $this->omlZf2ThemeManager()->headScript();
         ?>
     </head>
     <body>

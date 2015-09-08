@@ -50,6 +50,7 @@ return array(
         )
     ),
     'assets' => array(
+        'favicon' => 'img/favicon.ico',
     	'css' => array(
     		'css/bootstrap.css',
     		'css/font-awesome.min.css',
