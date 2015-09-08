@@ -10,35 +10,24 @@ namespace OmlZf2ThemeManager\Service\Factory;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use OmlZf2ThemeManager\ThemeManager;
+use OmlZf2ThemeManager\Initializer\ModuleInitializer;
+use OmlZf2ThemeManager\Validator\ModuleValidator;
+use OmlZf2ThemeManager\Manager\ThemeManager;
+
 
 class ThemeManagerFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $config = $serviceLocator->get('config');
-        // Validate all parameters
-        if (!array_key_exists('oml-zf2-theme-manager', $config)) {
+        $appConfig = $serviceLocator->get('config');
+        if (!array_key_exists('oml-zf2-theme-manager', $appConfig)) {
         	throw new \Exception('Missing configuration parameter for "oml-zf2-theme-manager"');
         }
-        $themeConfig = $config['oml-zf2-theme-manager'];
-        if (!array_key_exists('active_theme', $themeConfig)) {
-        	throw new Exception('There must be atleast one active theme set for "oml-zf2-theme-manager"');	
+        $moduleInitializer = new ModuleInitializer($appConfig['oml-zf2-theme-manager']);
+        $moduleValidator = new ModuleValidator($moduleInitializer);
+        if ($moduleValidator->isValid()) {
+            $manager = new ThemeManager($serviceLocator, $moduleInitializer);
+            return $manager;
         }
-        /**
-         * If specified active theme is not present in list of available theme, throw an exception
-         */
-        $activeThemeName = $themeConfig['active_theme'];
-        $activeThemeIsAvailable = false;
-        foreach ($themeConfig['themes'] as $themeName => $config) {
-            if ($activeThemeName == $themeName) {
-                $activeThemeIsAvailable = true;
-            }
-        }
-        if (false === $activeThemeIsAvailable) {
-            throw new \Exception('Specified active theme is not available in theme list');
-        }
-        $manager = new ThemeManager($serviceLocator, $themeConfig);
-        return $manager;
     }
 }
