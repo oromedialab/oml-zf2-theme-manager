@@ -16,7 +16,7 @@ return array(
     ),
     'view_helpers' => array(
         'invokables' => array(
-            'omlZf2TM' => 'OmlZf2ThemeManager\View\Helper\OmlZf2ThemeManager'
+            'omlZF2TM' => 'OmlZf2ThemeManager\View\Helper\OmlZf2ThemeManager'
         )
     ),
     'oml-zf2-theme-manager' => array(
