@@ -75,8 +75,8 @@ class Style
 	public function loadAssetCollection(array $options)
 	{
 		$assetCollection = new AssetCollection();
-		if (array_key_exists('load_assets', $options) && !empty($options['load_assets']) && is_array($options['load_assets'])) {
-			$assets = $options['load_assets'];
+		if (array_key_exists('assets', $options) && !empty($options['assets']) && is_array($options['assets'])) {
+			$assets = $options['assets'];
 			$cssAssets = array_key_exists('css', $assets) && !empty($assets['css']) && is_array($assets['css']) ? $assets['css'] : array();
 			foreach ($cssAssets as $cssAsset) {
 				$asset = new Asset('css', $cssAsset);

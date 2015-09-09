@@ -61,8 +61,9 @@ class StyleValidator
             if (!file_exists($logo)) {
                 throw new \Exception('Logo does not exist at given path for style '.$style['identifier']);
             }
-            if (!array_key_exists('load_assets', $style) || empty($style['load_assets']) || !is_array($style['load_assets'])) {
-                throw new \Exception('Invalid load_assets params or load_assets missing from style collection');
+
+            if (!array_key_exists('assets', $style) || empty($style['assets']) || !is_array($style['assets'])) {
+                throw new \Exception('Invalid assets params or assets missing from style collection');
             }
 
             // Check if active style has a matching identifier in collection

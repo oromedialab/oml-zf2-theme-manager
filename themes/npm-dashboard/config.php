@@ -11,8 +11,8 @@ return array(
         'layout/layout'        => __DIR__ . '/layout/layout.phtml',
         'layout/minimal-light' => __DIR__ . '/layout/layout-minimal.phtml',
         'layout/minimal-dark'  => __DIR__ . '/layout/layout-minimal.phtml',
-        'error/404'   => __DIR__ . '/error/404.phtml',
-        'error/index' => __DIR__ . '/error/index.phtml',
+        'error/404'     => __DIR__ . '/error/404.phtml',
+        'error/index'   => __DIR__ . '/error/index.phtml',
     ),
     'template_path_stack' => array(
         'npm-dashboard' => __DIR__
@@ -26,7 +26,7 @@ return array(
                 'name' => 'NPM Dashboard - Orange',
                 'identifier' => 'orange',
                 'logo' => 'orange/images/logo.png',
-                'load_assets' => array(
+                'assets' => array(
                     'css' => array(
                         'orange/css/npm.dashboard.orange.css'
                     )
@@ -36,7 +36,7 @@ return array(
                 'name' => 'NPM Dashboard - Blue',
                 'identifier' => 'blue',
                 'logo' => 'blue/images/logo.png',
-                'load_assets' => array(
+                'assets' => array(
                     'css' => array(
                         'blue/css/npm.dashboard.blue.css'
                     )
@@ -46,7 +46,7 @@ return array(
                 'name' => 'NPM Dashboard - Green',
                 'identifier' => 'green',
                 'logo' => 'green/images/logo.png',
-                'load_assets' => array(
+                'assets' => array(
                     'css' => array(
                         'green/css/npm.dashboard.green.css'
                     )
@@ -54,7 +54,7 @@ return array(
             )
         )
     ),
-    'assets' => array(
+    'asset' => array(
         'favicon' => array(
             'shortcut icon' => 'images/favicon.ico',
             'apple-touch-icon' => 'images/apple-touch-icon.png'
