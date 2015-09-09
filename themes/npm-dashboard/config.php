@@ -8,9 +8,11 @@
  */
 return array(
     'template_map' => array(
-        'layout/layout' => __DIR__ . '/layout/layout.phtml',
-        'error/404'     => __DIR__ . '/error/404.phtml',
-        'error/index'   => __DIR__ . '/error/index.phtml',
+        'layout/layout'        => __DIR__ . '/layout/layout.phtml',
+        'layout/minimal-light' => __DIR__ . '/layout/layout-minimal.phtml',
+        'layout/minimal-dark'  => __DIR__ . '/layout/layout-minimal.phtml',
+        'error/404'   => __DIR__ . '/error/404.phtml',
+        'error/index' => __DIR__ . '/error/index.phtml',
     ),
     'template_path_stack' => array(
         'npm-dashboard' => __DIR__

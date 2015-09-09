@@ -1,0 +1,74 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php
+            $this->omlZF2TM()->headTitle($this->translate('Dashboard'))->setSeparator(' - ')->setAutoEscape(false);
+            $this->omlZF2TM()->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0')->appendHttpEquiv('X-UA-Compatible', 'IE=edge,chrome=1');
+            $this->omlZF2TM()->headMeta()->appendName('description', $this->translate('NPM Technologies'));
+            $this->omlZF2TM()->headMeta()->appendName('author', 'NPM');
+            echo $this->omlZF2TM()->headTitle();
+            echo $this->omlZF2TM()->headMeta();
+            echo $this->omlZF2TM()->headLink();
+            echo $this->omlZF2TM()->headStyle();
+            echo $this->omlZF2TM()->headScript();
+
+
+
+            $this->headLink()->appendStylesheet($this->basePath().'/themes/default/assets/css/bootstrap.css');
+            $this->headLink()->appendStylesheet($this->basePath().'/themes/default/assets/css/font-awesome.min.css');
+            $this->headLink()->appendStylesheet($this->basePath().'/themes/default/assets/css/jquery-ui.css');
+            $this->headLink()->appendStylesheet($this->basePath().'/themes/default/assets/css/animate.css');
+            $this->headLink()->appendStylesheet($this->basePath().'/themes/default/assets/css/datatable.css');
+            $this->headLink()->appendStylesheet($this->basePath().'/themes/default/assets/css/style.css');
+            $this->headLink()->appendStylesheet($this->basePath().'/themes/default/assets/css/select2.css');
+            $this->headLink()->appendStylesheet($this->basePath().'/themes/default/assets/css/jquery.fancybox-1.3.4.css');
+            $this->headLink()->appendStylesheet($this->basePath().'/themes/default/css/ladda.min.css');
+            /**
+             * Javascript
+             */
+            $this->headScript()->appendFile($this->basePath() . '/themes/default/assets/js/jquery.js');
+            $this->headScript()->appendFile($this->basePath() . '/themes/default/assets/js/bootstrap.min.js');
+            $this->headScript()->appendFile($this->basePath() . '/themes/default/assets/js/jquery.validate.js');
+            $this->headScript()->appendFile($this->basePath() . '/themes/default/assets/js/jquery.uniform.js');
+            $this->headScript()->appendFile($this->basePath() . '/themes/default/assets/js/select2.js');
+            $this->headScript()->appendFile($this->basePath() . '/themes/default/assets/js/footable.js');
+            $this->headScript()->appendFile($this->basePath() . '/themes/default/assets/js/jquery.flot.js');
+            $this->headScript()->appendFile($this->basePath() . '/themes/default/assets/js/jquery.flot.pie.resize.js');
+            $this->headScript()->appendFile($this->basePath() . '/themes/default/assets/js/jquery.dataTables.min.js');
+            $this->headScript()->appendFile($this->basePath() . '/themes/default/assets/js/jquery-ui.js');
+            $this->headScript()->appendFile($this->basePath() . '/themes/default/assets/js/jquery.fancybox-1.3.4.pack.js.js');
+            $this->headScript()->appendFile($this->basePath() . '/themes/default/js/spin.min.js');
+            $this->headScript()->appendFile($this->basePath() . '/themes/default/js/ladda.min.js');
+            $this->headScript()->appendFile($this->basePath() . '/themes/default/js/classie.js');
+            $this->headScript()->appendFile($this->basePath() . '/themes/default/js/script.js');
+            $this->headScript()->appendFile($this->basePath() . '/themes/default/js/jquery-ui.js');
+            $this->headScript()->appendFile($this->basePath() . '/themes/default/js/custom.js');
+            $this->headScript()->appendFile($this->basePath() . '/themes/default/js/custom.ajax.js');
+            /**
+             * Render Head Elements.
+             */
+            echo $this->headTitle();
+            echo $this->headMeta();
+            echo $this->headLink();
+            echo $this->headStyle();
+            echo $this->headScript();
+
+        ?>
+    </head>
+    <body>
+        <div id="preloader">
+            <div id="status"><img src="<?php echo $this->basePath(); ?>/themes/default/images/loader.gif" alt=""></div>
+        </div>
+        <div ></div>
+        <?php echo $this->content; ?>
+    </body>
+    <script type="text/javascript">
+        $(window).load(function(){
+            $('#status').fadeOut();
+            $('#preloader').delay(350).fadeOut(function(){
+                $('body').delay(350);
+            });
+        });
+    </script>
+</html>
