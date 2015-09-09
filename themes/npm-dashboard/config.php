@@ -17,7 +17,7 @@ return array(
     ),
     'public_asset_path' => 'themes/npm-dashboard/assets/',
     'style' => array(
-        'active' => 'blue',
+        'active' => 'orange',
         'style_asset_path' => 'themes/npm-dashboard/styles/',
         'collection' => array(
             array(

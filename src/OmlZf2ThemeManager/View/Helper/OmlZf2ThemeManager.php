@@ -95,6 +95,13 @@ class OmlZf2ThemeManager extends AbstractHelper
         return $this->getView()->headScript();
     }
 
+    public function logo()
+    {
+        $theme = $this->getActiveTheme();
+        $logo = $this->getView()->basePath($theme->getStyleAssetPath().$theme->getActiveStyle()->getLogo());
+        return $logo;
+    }
+
     public function basePath($basePath)
     {
         return $this->getView()->basePath($this->getActiveTheme()->getPublicAssetPath().$basePath);
