@@ -15,7 +15,22 @@ return array(
     'template_path_stack' => array(
         'bootstrap' => __DIR__
     ),
-    'public_asset_path' => 'themes/bootstrap/',
+    'public_asset_path' => 'themes/bootstrap/assets/',
+    'style' => array(
+        'active' => 'default',
+        'style_asset_path' => 'themes/bootstrap/styles/',
+        'collection' => array(
+            array(
+                'name' => 'Default Bootstrap Theme for Zend Framework 2',
+                'identifier' => 'default',
+                'load_assets' => array(
+                    'css' => array(
+                        'default/css/default.css'
+                    )
+                )
+            )
+        )
+    ),
     'assets' => array(
         'favicon' => array(
             'shortcut icon' => 'img/favicon.ico',
