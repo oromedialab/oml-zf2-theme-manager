@@ -1,6 +1,6 @@
 <?php
 /**
- * OmlZf2ThemeManager - ThemeValidator class
+ * OmlZf2ThemeManager - Style Validator class
  *
  * @author Ibrahim Azhar Armar <azhar@iarmar.com>
  * @version 0.1

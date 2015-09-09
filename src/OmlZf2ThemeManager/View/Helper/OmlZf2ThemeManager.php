@@ -1,4 +1,11 @@
 <?php
+/**
+ * OmlZf2ThemeManager - View Helper Class for Theme Manager
+ *
+ * @author Ibrahim Azhar Armar <azhar@iarmar.com>
+ * @version 0.1
+ * @package OmlZf2
+ */
 namespace OmlZf2ThemeManager\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;

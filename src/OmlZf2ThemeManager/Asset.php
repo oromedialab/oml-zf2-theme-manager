@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * OmlZf2ThemeManager - Theme Asset Class
+ *
+ * @author Ibrahim Azhar Armar <azhar@iarmar.com>
+ * @version 0.1
+ * @package OmlZf2
+ */
 namespace OmlZf2ThemeManager;
 
 class Asset

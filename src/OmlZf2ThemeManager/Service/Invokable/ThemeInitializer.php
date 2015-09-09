@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * OmlZf2ThemeManager - Theme Initializer Class
+ *
+ * @author Ibrahim Azhar Armar <azhar@iarmar.com>
+ * @version 0.1
+ * @package OmlZf2
+ */
 namespace OmlZf2ThemeManager\Service\Invokable;
 
 use Zend\ServiceManager\ServiceManagerAwareInterface;
