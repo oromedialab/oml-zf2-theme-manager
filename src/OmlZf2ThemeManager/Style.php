@@ -11,6 +11,8 @@ class Style
 
 	protected $identiifer;
 
+	protected $logo;
+
 	protected $assetCollection;
 
 	public function __construct(array $options)
@@ -34,6 +36,22 @@ class Style
 	{
 		$this->identiifer = $identiifer;
 		return $this;
+	}
+
+	public function getIdentifier()
+	{
+		return $this->identiifer;
+	}
+
+	public function setLogo($logo)
+	{
+		$this->logo = $logo;
+		return $this;
+	}
+
+	public function getLogo()
+	{
+		return $this->logo;
 	}
 
 	public function setAssetCollection(AssetCollection $assetCollection)
@@ -62,9 +80,6 @@ class Style
 		return $this;
 	}
 
-	/**
-     * Import from Arrary
-     */
     public function fromArray(array $array)
     {
         foreach ($array as $property => $value) {
@@ -77,9 +92,6 @@ class Style
         return $this;
     }
 
-    /**
-     * Properties to Array
-     */
     public function toArray()
     {
         return get_object_vars($this);

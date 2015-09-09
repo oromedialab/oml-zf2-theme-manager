@@ -23,6 +23,7 @@ return array(
             array(
                 'name' => 'NPM Dashboard - Orange',
                 'identifier' => 'orange',
+                'logo' => 'orange/images/logo.png',
                 'load_assets' => array(
                     'css' => array(
                         'orange/css/npm.dashboard.orange.css'
@@ -32,6 +33,7 @@ return array(
             array(
                 'name' => 'NPM Dashboard - Blue',
                 'identifier' => 'blue',
+                'logo' => 'blue/images/logo.png',
                 'load_assets' => array(
                     'css' => array(
                         'blue/css/npm.dashboard.blue.css'
@@ -41,6 +43,7 @@ return array(
             array(
                 'name' => 'NPM Dashboard - Green',
                 'identifier' => 'green',
+                'logo' => 'green/images/logo.png',
                 'load_assets' => array(
                     'css' => array(
                         'green/css/npm.dashboard.green.css'

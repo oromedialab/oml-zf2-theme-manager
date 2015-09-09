@@ -23,6 +23,7 @@ return array(
             array(
                 'name' => 'Default Bootstrap Theme for Zend Framework 2',
                 'identifier' => 'default',
+                'logo' => 'default/images/logo.png',
                 'load_assets' => array(
                     'css' => array(
                         'default/css/default.css'
