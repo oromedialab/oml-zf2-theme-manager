@@ -25,6 +25,7 @@ class ThemeValidator
         $this->validateTemplateMap();
         $this->validateTemplatePathStack();
         $this->validatePublicAssetPath();
+        $this->validateStyle();
         return true;
     }
 
@@ -79,5 +80,13 @@ class ThemeValidator
             throw new \Exception('Invalid or missing path for public_asset_path in theme '.$this->theme->getIdentifier());
         }
         return $this;
+    }
+
+    protected function validateStyle()
+    {
+        $styleCollection = $this->theme->getStyleCollection()->fetchAll();
+        if (empty($styleCollection)) {
+            throw new \Exception('There must be at-least one style available for a theme, no styles found for theme "'.$this->theme->getIdentifier().'"');
+        }
     }
 }
