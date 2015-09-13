@@ -6,12 +6,16 @@
  * @version 0.1
  * @package OmlZf2
  */
-namespace OmlZf2ThemeManager;
+namespace OmlZf2ThemeManager\Theme;
 
-use OmlZf2ThemeManager\Style;
 use OmlZf2ThemeManager\Collection\StyleCollection;
 use OmlZf2ThemeManager\Collection\AssetCollection;
+
 use OmlZf2ThemeManager\Validator\StyleValidator;
+use OmlZf2ThemeManager\Validator\AssetValidator;
+
+use OmlZf2ThemeManager\Theme\Style;
+use OmlZf2ThemeManager\Theme\Asset;
 
 class Theme
 {
@@ -58,11 +62,11 @@ class Theme
     protected $publicAssetPath;
 
     /**
-     * Style Asset Path
+     * Active Style
      *
-     * @var|string
+     * @var|obj
      */
-    protected $styleAssetPath;
+    protected $activeStyle;
 
     /**
      * Theme Style Collection (orange, blue, green etc.)
@@ -72,26 +76,21 @@ class Theme
     protected $styleCollection;
 
     /**
-     * Active Style
+     * Asset Collection (css, js, favicon etc.)
      *
-     * @var|obj
-     */
-    protected $activeStyle;
-
-    /**
-     * Asset Collection (css, js etc.)
-     *
-     * @var|obj
+     * @var|array
      */
     protected $assetCollection;
+
+    protected $skipLoadFromArray = array(
+        'active_style',
+        'style_collection',
+        'asset_collection'
+    );
 
     public function __construct(array $option)
     {
         $this->fromArray($option);
-        $options = array_merge_recursive($option, $this->getConfig());
-        $this->fromArray($options);
-        $this->loadStyle();
-        $this->loadAsset();
     }
 
     /**
@@ -197,23 +196,6 @@ class Theme
     }
 
     /**
-     * Set Style Asset Path
-     */
-    public function setStyleAssetPath($styleAssetPath)
-    {
-        $this->styleAssetPath = $styleAssetPath;
-        return $this;
-    }
-
-    /**
-     * Get Style Asset Path
-     */
-    public function getStyleAssetPath()
-    {
-        return $this->styleAssetPath;
-    }
-
-    /**
      * Set Theme Style Collection
      */
     public function setStyleCollection(StyleCollection $styleCollection)
@@ -228,66 +210,6 @@ class Theme
     public function getStyleCollection()
     {
         return $this->styleCollection;
-    }
-
-    public function hasStyle()
-    {
-        $styleCollection = $this->getStyleCollection()->fetchAll();
-        return !empty($styleCollection) ? true : false;
-    }
-
-    /**
-     * Load Style Collection
-     */
-    public function loadStyle()
-    {
-        $config = $this->getMergedConfig();
-        $styleCollection = new StyleCollection();
-        if (array_key_exists('style', $config)) {
-            $styleValidator = new StyleValidator($config);
-            if ($styleValidator->isValid()) {
-                $activeStyleIdentifier = array_key_exists('active', $config['style']) ? $config['style']['active'] : null;
-                $this->styleAssetPath = array_key_exists('style_asset_path', $config['style']) ? $config['style']['style_asset_path'] : null;
-                $activeStyle = null;
-                foreach ($config['style']['collection'] as $styleConfig) {
-                    $style = new Style($styleConfig);
-                    $styleCollection->add($style);
-                    if ($activeStyleIdentifier == $styleConfig['identifier']) {
-                        $activeStyle = $style;
-                    }
-                }
-                $this->setActiveStyle($activeStyle);
-            }
-        }
-        $this->styleCollection = $styleCollection;
-        return $this;
-    }
-
-    /**
-     * Load Asset Collection
-     */
-    public function loadAsset()
-    {
-        $config = $this->getMergedConfig();
-        $assetCollection = new AssetCollection;
-        $assets = array_key_exists('assets', $config) && !empty($config['assets']) && is_array($config['assets']) ? $config['assets'] : array();
-        $cssAssets = array_key_exists('css', $assets) && !empty($assets['css']) && is_array($assets['css']) ? $assets['css'] : array();
-        $jsAssets = array_key_exists('js', $assets) && !empty($assets['js']) && is_array($assets['js']) ? $assets['js'] : array();
-        foreach ($cssAssets as $resource) {
-            $asset = new Asset('css', $resource);
-            $assetCollection->add($asset);
-        }
-        foreach ($jsAssets as $resource) {
-            $asset = new Asset('js', $resource);
-            $assetCollection->add($asset);
-        }
-        $favIcon = array_key_exists('favicon', $assets) ? $assets['favicon'] : null;
-        if (null != $favIcon) {
-            $asset = new Asset('favicon', $favIcon);
-            $assetCollection->add($asset);
-        }
-        $this->assetCollection = $assetCollection;
-        return $this;
     }
 
     /**
@@ -325,20 +247,14 @@ class Theme
     }
 
     /**
-     * Get Theme Config
-     */
-    public function getConfig()
-    {
-        $templatePath = $this->getThemePath();
-        return include $templatePath.'/config.php';
-    }
-
-    /**
      * Import from Arrary
      */
     public function fromArray(array $array)
     {
         foreach ($array as $property => $value) {
+            if (in_array($property, $this->skipLoadFromArray)) {
+                continue;
+            }
             $underscoreToCamelCase = new \Zend\Filter\Word\UnderscoreToCamelCase();
             $method = 'set'.$underscoreToCamelCase->filter($property);
             if (method_exists($this, $method)) {
@@ -346,11 +262,6 @@ class Theme
             }
         }
         return $this;
-    }
-
-    public function getMergedConfig()
-    {
-        return array_merge_recursive($this->toArray(), $this->getConfig());
     }
 
     /**

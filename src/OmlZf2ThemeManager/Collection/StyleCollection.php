@@ -8,20 +8,14 @@
  */
 namespace OmlZf2ThemeManager\Collection;
 
-use OmlZf2ThemeManager\Style;
+use OmlZf2ThemeManager\Collection\ArrayCollection;
+use OmlZf2ThemeManager\Theme\Style;
 
-class StyleCollection
+class StyleCollection extends ArrayCollection
 {
-    protected $styles = array();
-
     public function add(Style $style)
     {
-        $this->styles[] = $style;
+        $this->collections[] = $style;
         return $this;
-    }
-
-    public function fetchAll()
-    {
-        return $this->styles;
     }
 }

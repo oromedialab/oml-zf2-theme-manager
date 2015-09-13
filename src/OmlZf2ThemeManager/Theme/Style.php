@@ -7,9 +7,8 @@
  * @package OmlZf2
  */
 
-namespace OmlZf2ThemeManager;
+namespace OmlZf2ThemeManager\Theme;
 
-use OmlZf2ThemeManager\Asset;
 use OmlZf2ThemeManager\Collection\AssetCollection;
 
 class Style
@@ -18,14 +17,15 @@ class Style
 
 	protected $identiifer;
 
-	protected $logo;
+	protected $layout;
+
+	protected $assetsRef;
 
 	protected $assetCollection;
 
 	public function __construct(array $options)
 	{
 		$this->fromArray($options);
-		$this->loadAssetCollection($options);
 	}
 
 	public function setName($name)
@@ -50,41 +50,37 @@ class Style
 		return $this->identiifer;
 	}
 
-	public function setLogo($logo)
+	public function setLayout($layout)
 	{
-		$this->logo = $logo;
+		$this->layout = $layout;
 		return $this;
 	}
 
-	public function getLogo()
+	public function getLayout()
 	{
-		return $this->logo;
+		return $this->layout;
+	}
+
+	public function setAssetsRef($assetsRef)
+	{
+		$this->assetsRef = $assetsRef;
+		return $this;
+	}
+
+	public function getAssetsRef()
+	{
+		return $this->assetsRef;
 	}
 
 	public function setAssetCollection(AssetCollection $assetCollection)
 	{
-		$this->assetCollection[] = $assetCollection;
+		$this->assetCollection = $assetCollection;
 		return $this;
 	}
 
 	public function getAssetCollection()
 	{
 		return $this->assetCollection;
-	}
-
-	public function loadAssetCollection(array $options)
-	{
-		$assetCollection = new AssetCollection();
-		if (array_key_exists('assets', $options) && !empty($options['assets']) && is_array($options['assets'])) {
-			$assets = $options['assets'];
-			$cssAssets = array_key_exists('css', $assets) && !empty($assets['css']) && is_array($assets['css']) ? $assets['css'] : array();
-			foreach ($cssAssets as $cssAsset) {
-				$asset = new Asset('css', $cssAsset);
-				$assetCollection->add($asset);
-			}
-		}
-		$this->assetCollection = $assetCollection;
-		return $this;
 	}
 
     public function fromArray(array $array)

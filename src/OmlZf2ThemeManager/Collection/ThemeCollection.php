@@ -8,20 +8,14 @@
  */
 namespace OmlZf2ThemeManager\Collection;
 
-use OmlZf2ThemeManager\Theme;
+use OmlZf2ThemeManager\Collection\ArrayCollection;
+use OmlZf2ThemeManager\Theme\Theme;
 
-class ThemeCollection
+class ThemeCollection extends ArrayCollection
 {
-    protected $themes = array();
-
     public function add(Theme $theme)
     {
-        $this->themes[] = $theme;
+        $this->collections[] = $theme;
         return $this;
-    }
-
-    public function fetchAll()
-    {
-        return $this->themes;
     }
 }

@@ -9,9 +9,9 @@
 namespace OmlZf2ThemeManager\Resolver;
 
 use Zend\ServiceManager\ServiceLocatorInterface;
-use OmlZf2ThemeManager\Theme;
+use OmlZf2ThemeManager\Theme\Theme;
 
-class TemplateResolver
+class ThemeResolver
 {
     protected $theme;
 

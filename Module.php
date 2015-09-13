@@ -9,11 +9,12 @@ class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
-        $eventManager        = $e->getApplication()->getEventManager();
+        $application = $e->getApplication();
+        $eventManager = $application->getEventManager();
+        $serviceManager = $application->getServiceManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-        $serviceManager = $e->getApplication()->getServiceManager();
-        $themeManager = $serviceManager->get('ThemeManagerFactory');
+        $serviceManager->get('omlzf2.theme.manager.factory');
     }
 
     public function getConfig()
@@ -27,8 +28,8 @@ class Module
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
-                ),
-            ),
+                )
+            )
         );
     }
 
@@ -36,7 +37,10 @@ class Module
     {
         return array(
             'factories' => array(
-                'ThemeManagerFactory' => 'OmlZf2ThemeManager\Service\Factory\ThemeManagerFactory'
+                'omlzf2.theme.manager.factory' => 'OmlZf2ThemeManager\Service\Factory\ThemeManagerFactory'
+            ),
+            'invokables' => array(
+                'omlzf2.theme.manager.service' => 'OmlZf2ThemeManager\Service\Invokable\ThemeManagerService'
             )
         );
     }
