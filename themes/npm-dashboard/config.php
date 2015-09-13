@@ -9,8 +9,8 @@
 return array(
     'template_map' => array(
         'layout/layout'        => __DIR__ . '/layout/layout.phtml',
-        'layout/minimal-light' => __DIR__ . '/layout/layout-minimal.phtml',
-        'layout/minimal-dark'  => __DIR__ . '/layout/layout-minimal.phtml',
+        'layout/minimal-light' => __DIR__ . '/layout/minimal-light.phtml',
+        'layout/minimal-dark'  => __DIR__ . '/layout/minimal-dark.phtml',
         'error/404'     => __DIR__ . '/error/404.phtml',
         'error/index'   => __DIR__ . '/error/index.phtml',
     ),
@@ -18,7 +18,7 @@ return array(
         'npm-dashboard'   => __DIR__
     ),
     'public_asset_path' => 'themes/npm-dashboard/',
-    'active_style'      => 'minimal-light',
+    'active_style'      => 'orange',
     'style_collection'  => array(
         array(
             'name'       => 'NPM Dashboard - Orange',

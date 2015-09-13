@@ -9,6 +9,7 @@
 namespace OmlZf2ThemeManager\Resolver;
 
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Mvc\MvcEvent;
 use OmlZf2ThemeManager\Theme\Theme;
 
 class ThemeResolver
@@ -23,13 +24,9 @@ class ThemeResolver
         $this->theme = $theme;
     }
 
-    /**
-     * Resolve theme config
-     */
     public function resolve()
     {
         $theme = $this->getTheme();
-        $viewResolver = $this->serviceLocator()->get('ViewResolver');
 
         // Resolve Template Map
         $themeResolver = new \Zend\View\Resolver\AggregateResolver();
@@ -39,16 +36,30 @@ class ThemeResolver
         $templateMapResolver = new \Zend\View\Resolver\TemplateMapResolver($templateMap);
         $themeResolver->attach($templateMapResolver);
 
+        // Reolve Template Path Stack
         $templatePathStack = $this->getTheme()->getTemplatePathStack();
         $viewResolverPathStack = $this->serviceLocator()->get('ViewTemplatePathStack');
         $viewResolverPathStack->addPaths($templatePathStack);
         $pathResolver = new \Zend\View\Resolver\TemplatePathStack(array(
             'script_paths' => $templatePathStack
         ));
+
+        // Resolve Path
+        $viewResolver = $this->serviceLocator()->get('ViewResolver');
         $defaultPathStack = $this->serviceLocator()->get('ViewTemplatePathStack');
         $pathResolver->setDefaultSuffix($defaultPathStack->getDefaultSuffix());
         $themeResolver->attach($pathResolver);
         $viewResolver->attach($themeResolver, 100);
+
+        // Resolve layout for selected style
+        $sharedEventManager = $this->serviceLocator()->get('view')->getEventManager()->getSharedManager();
+        $sharedEventManager->attach(
+            'Zend\Stdlib\DispatchableInterface',
+            MvcEvent::EVENT_DISPATCH,
+            function(MvcEvent $event) use (&$theme) {
+                $event->getViewModel()->setTemplate($theme->getActiveStyle()->getLayout());
+        }, -200);
+
         return true;
     }
 

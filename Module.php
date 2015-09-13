@@ -40,8 +40,8 @@ class Module
                 'omlzf2.theme.manager.factory' => 'OmlZf2ThemeManager\Service\Factory\ThemeManagerFactory'
             ),
             'invokables' => array(
-                'omlzf2.theme.manager.service' => 'OmlZf2ThemeManager\Service\Invokable\ThemeManagerService'
-            )
+                'omlzf2.theme.manager.service' => 'OmlZf2ThemeManager\Service\Invokable\ThemeManagerService',
+            ),
         );
     }
 }
