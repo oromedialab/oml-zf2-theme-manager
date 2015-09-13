@@ -13,15 +13,23 @@ use OmlZf2ThemeManager\Core\Utility;
 
 class OmlZf2ThemeManager extends AbstractHelper
 {
+    protected $serviceManager;
+
     protected $themeinitializer;
 
     protected $activeTheme;
 
+    protected $activeStyle;
+
+    protected $assetsForActiveStyle;
+
     public function __invoke()
     {
-        $sm = $this->getServiceLocator();
-        $this->themeinitializer = $sm->get('omlzf2.themeinitializer')->init();
+        $this->serviceManager = $this->getServiceManager();
+        $this->themeinitializer = $this->serviceManager->get('omlzf2.theme.manager.service')->init();
         $this->activeTheme = $this->themeinitializer->getActiveTheme();
+        $this->activeStyle = $this->activeTheme->getActiveStyle();
+        $this->assetsForActiveStyle = $this->activeStyle->getAssetCollection();
         return $this;
     }
 
@@ -37,32 +45,14 @@ class OmlZf2ThemeManager extends AbstractHelper
 
     public function headLink()
     {
-        $theme = $this->getActiveTheme();
-        $assetCollection = $theme->getAssetCollection()->fetchAll();
-        foreach ($assetCollection as $asset) {
+        foreach ($this->getAssetsForActiveStyle() as $asset) {
             if('css' === $asset->getType()) {
-                $resource = $this->getView()->basePath($theme->getPublicAssetPath()).$asset->getResource();
-                $this->getView()->headLink()->appendStylesheet($resource);
+                $href = $this->getView()->basePath($this->publicAssetPath()).$asset->getHref();
+                $this->getView()->headLink()->appendStylesheet($href);
             }
             if('favicon' === $asset->getType()) {
-                $resource = array();
-                if (is_array($asset->getResource())) {
-                    foreach ($asset->getResource() as $rel => $href) {
-                        $resource = array('rel' => $rel, 'href' => $this->getView()->basePath($theme->getPublicAssetPath()).$href);
-                        $this->getView()->headLink($resource);
-                    }
-                }
-            }
-        }
-        // Apply CSS from styles if available
-        if ($theme->hasStyle()) {
-            $activeStyle = $theme->getActiveStyle();
-            $assets = $activeStyle->getAssetCollection()->fetchAll();
-            foreach ($assets as $asset) {
-                if('css' === $asset->getType()) {
-                    $resource = $this->getView()->basePath($theme->getStyleAssetPath()).$asset->getResource();
-                    $this->getView()->headLink()->appendStylesheet($resource);
-                }
+                $resource = array('rel' => $asset->getRel(), 'href' => $this->getView()->basePath($this->publicAssetPath()).$asset->getHref());
+                $this->getView()->headLink($resource);
             }
         }
         return $this->getView()->headLink();
@@ -75,36 +65,60 @@ class OmlZf2ThemeManager extends AbstractHelper
 
     public function headScript()
     {
-        $theme = $this->getActiveTheme();
-        $assetCollection = $theme->getAssetCollection()->fetchAll();
-        foreach ($assetCollection as $asset) {
-            $resource = $asset->getResource();
+        foreach ($this->getAssetsForActiveStyle() as $asset) {
             if('js' === $asset->getType()) {
-                if (!is_array($asset->getResource())) {
-                    $fileResource = $this->getView()->basePath($theme->getPublicAssetPath()).$resource;
-                    $this->getView()->headScript()->appendFile($fileResource);
-                }
-                if (is_array($resource) && array_key_exists('resource', $resource)) {
-                    $fileResource = $this->getView()->basePath($theme->getPublicAssetPath()).$resource['resource'];
-                    $args = array_key_exists('args', $resource) ? $resource['args'] : array();
-                    $params = array_merge_recursive(array($fileResource), $args);
-                    call_user_func_array(array($this->getView()->headScript(), 'appendFile'), $params);
-                }
+                $href = $this->getView()->basePath($this->publicAssetPath()).$asset->getHref();
+                $params = array_merge_recursive(array($href), $asset->getParams());
+                call_user_func_array(array($this->getView()->headScript(), 'appendFile'), $params);
             }
         }
         return $this->getView()->headScript();
     }
 
-    public function logo()
+    public function logo($dimension)
     {
-        $theme = $this->getActiveTheme();
-        $logo = $this->getView()->basePath($theme->getStyleAssetPath().$theme->getActiveStyle()->getLogo());
+        $logo = null;
+        foreach ($this->getAssetsForActiveStyle() as $asset) {
+            if('logo' === $asset->getType()) {
+                if ($dimension == $asset->getDimension()) {
+                    $logo = $this->getView()->basePath($this->publicAssetPath()).$asset->getHref();
+                }
+            }
+        }
+        if (null == $logo) {
+            throw new \Exception('Logo with dimension "'.$dimension.'" not found for theme "'.$this->getActiveTheme()->getIdentifier().'"');
+        }
         return $logo;
     }
 
-    public function basePath($basePath)
+    public function getServiceManager()
     {
-        return $this->getView()->basePath($this->getActiveTheme()->getPublicAssetPath().$basePath);
+        return $this->getView()->getHelperPluginManager()->getServiceLocator();
+    }
+
+    public function getThemeInitializer()
+    {
+        return $this->themeinitializer;
+    }
+
+    public function getActiveTheme()
+    {
+        return $this->activeTheme;
+    }
+
+    public function getActiveStyle()
+    {
+        return $this->activeStyle;
+    }
+
+    public function getAssetsForActiveStyle()
+    {
+        return $this->assetsForActiveStyle;
+    }
+
+    public function basePath($path)
+    {
+        return $this->getView()->basePath($this->getActiveTheme()->getPublicAssetPath().$path);
     }
 
     public function publicAssetPath()
@@ -115,20 +129,5 @@ class OmlZf2ThemeManager extends AbstractHelper
     public function publicDirectoryPath()
     {
         return Utility::PUBLIC_DIRECTORY_PATH();
-    }
-
-    public function getActiveTheme()
-    {
-        return $this->activeTheme;
-    }
-
-    public function getThemeInitializer()
-    {
-        return $this->themeinitializer;
-    }
-
-    public function getServiceLocator()
-    {
-        return $this->getView()->getHelperPluginManager()->getServiceLocator();
     }
 }

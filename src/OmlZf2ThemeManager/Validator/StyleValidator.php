@@ -22,52 +22,53 @@ class StyleValidator
     protected function validate()
     {
         $config = $this->getConfig();
-        $styleConfig = array_key_exists('style', $config) ? $config['style'] : array();
-        $styleAssetAbsolutePath = Utility::PUBLIC_DIRECTORY_PATH().$styleConfig['style_asset_path'];
 
-        $activeStyleIdentifier = array_key_exists('active', $styleConfig) ? $styleConfig['active'] : null;
-        $activeStyleIdentifierIsAvailableInCollection = false;
+        echo '<pre>';
+        print_r($config);
+        die;
 
-        if (!array_key_exists('active', $styleConfig) || empty($styleConfig['active'])) {
-            throw new \Exception('Invalid or non-existent active style');
+        $styleCollection = array_key_exists('style_collection', $config) ? $config['style_collection'] : array();
+        $defaultStyleIdentifier = array_key_exists('default_style', $config) ? $config['default_style'] : null;
+        $defaultStyleIdentifierIsAvailableInCollection = false;
+        $publicAssetPath = Utility::PUBLIC_DIRECTORY_PATH().$config['public_asset_path'];
+
+        if (!array_key_exists('default_style', $config) || empty($config['default_style'])) {
+            throw new \Exception('Invalid or non-existent default style');
         }
-        if (!array_key_exists('style_asset_path', $styleConfig) || empty($styleConfig['style_asset_path'])) {
-            throw new \Exception('Invalid or non-existent style_asset_path');
+        if (!file_exists($publicAssetPath) || !is_dir($publicAssetPath)) {
+            throw new \Exception('Directory does not exist at given path for public_asset_path');
         }
-        
-        if (!file_exists($styleAssetAbsolutePath) || !is_dir($styleAssetAbsolutePath)) {
-            throw new \Exception('Directory does not exist at given path for style_asset_path');
-        }
-        if (!array_key_exists('collection', $styleConfig) || empty($styleConfig['collection'])) {
+        if (!array_key_exists('style_collection', $config) || empty($config['style_collection'])) {
             throw new \Exception('Invalid or empty style collection');
         }
 
-        $styleCollection = $styleConfig['collection'];
+        foreach ($styleCollection as $styleConfig) {
 
-        foreach ($styleCollection as $style) {
-
-            if (!array_key_exists('name', $style) || empty($style['name'])) {
+            if (!array_key_exists('name', $styleConfig) || empty($styleConfig['name'])) {
                 throw new \Exception('Style name does not exist in collection');
             }
-            if (!array_key_exists('identifier', $style) || empty($style['identifier'])) {
+            if (!array_key_exists('identifier', $styleConfig) || empty($styleConfig['identifier'])) {
                 throw new \Exception('Style identifier does not exist in collection');
             }
-            if (!array_key_exists('logo', $style) || empty($style['logo'])) {
+            if (!array_key_exists('layout', $styleConfig) || empty($styleConfig['layout'])) {
+                throw new \Exception('Style layout does not exist in collection');
+            }
+            if (!array_key_exists('logo_ref', $styleConfig) || empty($styleConfig['logo_ref'])) {
                 throw new \Exception('Style logo does not exist in collection');
             }
 
-            $logo = Utility::PUBLIC_DIRECTORY_PATH().$styleConfig['style_asset_path'].$style['logo'];
+            $logo = Utility::PUBLIC_DIRECTORY_PATH().$styleConfig['style_asset_path'].$styleConfig['logo'];
 
             if (!file_exists($logo)) {
-                throw new \Exception('Logo does not exist at given path for style '.$style['identifier']);
+                throw new \Exception('Logo does not exist at given path for style '.$styleConfig['identifier']);
             }
 
-            if (!array_key_exists('assets', $style) || empty($style['assets']) || !is_array($style['assets'])) {
+            if (!array_key_exists('assets_ref', $styleConfig) || empty($styleConfig['assets_ref']) || !is_array($styleConfig['assets_ref'])) {
                 throw new \Exception('Invalid assets params or assets missing from style collection');
             }
 
             // Check if active style has a matching identifier in collection
-            if ($activeStyleIdentifier === $style['identifier']) {
+            if ($activeStyleIdentifier === $styleConfig['identifier']) {
                 $activeStyleIdentifierIsAvailableInCollection = true;
             }
         }

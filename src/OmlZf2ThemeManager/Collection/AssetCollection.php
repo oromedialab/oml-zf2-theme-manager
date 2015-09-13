@@ -8,20 +8,14 @@
  */
 namespace OmlZf2ThemeManager\Collection;
 
-use OmlZf2ThemeManager\Asset;
+use OmlZf2ThemeManager\Collection\ArrayCollection;
+use OmlZf2ThemeManager\Theme\Asset\AssetInterface;
 
-class AssetCollection
+class AssetCollection extends ArrayCollection
 {
-    protected $assets = array();
-
-    public function add(Asset $asset)
+    public function add(AssetInterface $asset)
     {
-        $this->assets[] = $asset;
+        $this->collections[] = $asset;
         return $this;
-    }
-
-    public function fetchAll()
-    {
-        return $this->assets;
     }
 }

@@ -8,15 +8,15 @@
  */
 namespace OmlZf2ThemeManager\Validator;
 
-use OmlZf2ThemeManager\Initializer\ModuleInitializer;
+use OmlZf2ThemeManager\Config\ModuleConfig;
 
-class ModuleValidator
+class ModuleConfigValidator
 {
-    protected $moduleInitializer;
+    protected $moduleConfig;
 
-    public function __construct(ModuleInitializer $moduleInitializer)
+    public function __construct(ModuleConfig $moduleConfig)
     {
-        $this->moduleInitializer = $moduleInitializer;
+        $this->moduleConfig = $moduleConfig;
     }
 
     public function isValid()
@@ -26,7 +26,7 @@ class ModuleValidator
 
     protected function validate()
     {
-        $moduleConfig = $this->moduleInitializer->getConfig();
+        $moduleConfig = $this->moduleConfig->getConfig();
 
         // Validate Active Theme (active_theme)
         if (!array_key_exists('active_theme', $moduleConfig) || empty($moduleConfig['active_theme'])) {
@@ -73,11 +73,6 @@ class ModuleValidator
         }
 
         return true;
-    }
-
-    public function getConfigData()
-    {
-        return $this->moduleInitializer->getConfig();
     }
 }
 

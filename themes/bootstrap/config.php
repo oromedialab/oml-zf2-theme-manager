@@ -1,6 +1,6 @@
 <?php
 /**
- * OmlZf2ThemeManager - Local theme config file
+ * OmlZf2ThemeManager - Theme Config File (Bootstrap)
  *
  * @author Ibrahim Azhar Armar <azhar@iarmar.com>
  * @version 0.1
@@ -15,50 +15,71 @@ return array(
     'template_path_stack' => array(
         'bootstrap' => __DIR__
     ),
-    'public_asset_path' => 'themes/bootstrap/assets/',
-    'style' => array(
-        'active' => 'default',
-        'style_asset_path' => 'themes/bootstrap/styles/',
-        'collection' => array(
-            array(
-                'name' => 'Default Bootstrap Theme for Zend Framework 2',
-                'identifier' => 'default',
-                'logo' => 'default/images/logo.png',
-                'assets' => array(
-                    'css' => array(
-                        'default/css/default.css'
+    'public_asset_path' => 'themes/bootstrap/',
+    'active_style'      => 'default',
+    'style_collection'  => array(
+        array(
+            'name'       => 'Default Bootstrap Theme for Zend Framework 2',
+            'identifier' => 'default',
+            'layout'     => 'layout/layout',
+            'assets_ref' => array('@1', '@2', '@3')
+        )
+    ),
+    'asset_collection' => array(
+        '@1' => array(
+            'favicon' => array(
+                array(
+                    'rel' => 'shortcut icon',
+                    'href' => 'img/favicon.ico'
+                ),
+                array(
+                    'rel' => 'apple-touch-icon',
+                    'href' => 'img/apple-touch-icon.png'
+                )
+            )
+        ),
+        '@2' => array(
+            'logo' => array(
+                array(
+                    'dimension' => '256X256',
+                    'href' => 'images/logo.png'
+                )
+            )
+        ),
+        '@3' => array(
+            'css' => array(
+                array(
+                    'href' => 'css/style.css'
+                ),
+                array(
+                    'href' => 'css/bootstrap-theme.min.css'
+                ),
+                array(
+                    'href' => 'css/bootstrap.min.css'
+                )
+            ),
+            'js' => array(
+                array(
+                    'href' => 'js/bootstrap.min.js'
+                ),
+                array(
+                    'href' => 'js/jquery.min.js'
+                ),
+                array(
+                    'href' => 'js/respond.min.js',
+                    'params' => array(
+                        'text/javascript',
+                        array('conditional' => 'lt IE 9',)
+                    )
+                ),
+                array(
+                    'href' => 'js/html5shiv.min.js',
+                    'params' => array(
+                        'text/javascript',
+                        array('conditional' => 'lt IE 9',)
                     )
                 )
             )
         )
-    ),
-    'assets' => array(
-        'favicon' => array(
-            'shortcut icon' => 'img/favicon.ico',
-            'apple-touch-icon' => 'img/apple-touch-icon.png'
-        ),
-    	'css' => array(
-    		'css/style.css',
-    		'css/bootstrap-theme.min.css',
-			'css/bootstrap.min.css'
-    	),
-    	'js' => array(
-    		'js/bootstrap.min.js',
-            'js/jquery.min.js',
-            array(
-            	'resource' => 'js/respond.min.js',
-                'args' => array(
-                    'text/javascript',
-                    array('conditional' => 'lt IE 9',)
-                )
-            ),
-            array(
-            	'resource' => 'js/html5shiv.min.js',
-                'args' => array(
-                    'text/javascript',
-                    array('conditional' => 'lt IE 9',)
-                )
-            )
-    	)
     )
 );

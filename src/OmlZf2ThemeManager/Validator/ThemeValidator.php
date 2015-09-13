@@ -84,7 +84,7 @@ class ThemeValidator
 
     protected function validateStyle()
     {
-        $styleCollection = $this->theme->getStyleCollection()->fetchAll();
+        $styleCollection = $this->theme->getStyleCollection();
         if (empty($styleCollection)) {
             throw new \Exception('There must be at-least one style available for a theme, no styles found for theme "'.$this->theme->getIdentifier().'"');
         }
