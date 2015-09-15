@@ -25,7 +25,7 @@ class ThemeManagerFactory implements FactoryInterface
 
         $themeManagerService = $serviceLocator->get('omlzf2.theme.manager.service')->init();
 
-        $themeResolver = new ThemeResolver($serviceLocator, $themeManagerService->getActiveTheme());
+        $themeResolver = new ThemeResolver($serviceLocator, $themeManagerService);
         $themeResolver->resolve();
 
         return $themeManagerService;

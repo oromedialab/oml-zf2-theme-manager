@@ -8,13 +8,19 @@
  */
 namespace OmlZf2ThemeManager\Config;
 
+use OmlZf2ThemeManager\Theme;
+
 class ModuleConfig
 {
-	protected $configArray;
+    protected $config;
+
+	protected $mergedConfig;
 
 	protected $activeTheme;
 
 	protected $themes;
+
+    protected $styleSwitcher;
 
     public function __construct(array $config)
     {
@@ -37,7 +43,17 @@ class ModuleConfig
     	return $this->themes;
     }
 
-    public function getConfigArray()
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    public function getStyleSwitcher()
+    {
+        return $this->styleSwitcher;
+    }
+
+    public function getMergedConfig()
     {
     	$moduleConfig = $this->config;
         foreach ($moduleConfig['themes'] as  $index => $config) {

@@ -10,18 +10,26 @@ namespace OmlZf2ThemeManager\Resolver;
 
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Mvc\MvcEvent;
+
+use OmlZf2ThemeManager\Service\Invokable\ThemeManagerService;
 use OmlZf2ThemeManager\Theme\Theme;
 
 class ThemeResolver
 {
-    protected $theme;
-
     protected $serviceManager;
 
-    public function __construct(ServiceLocatorInterface $serviceManager, Theme $theme)
+    protected $themeManagerService;
+
+    protected $moduleConfig;
+
+    protected $theme;
+
+    public function __construct(ServiceLocatorInterface $serviceManager, ThemeManagerService $themeManagerService)
     {
         $this->serviceManager = $serviceManager;
-        $this->theme = $theme;
+        $this->themeManagerService = $themeManagerService;
+        $this->moduleConfig = $this->themeManagerService->getModuleConfig();
+        $this->theme = $this->themeManagerService->getActiveTheme();
     }
 
     public function resolve()
@@ -51,16 +59,22 @@ class ThemeResolver
         $themeResolver->attach($pathResolver);
         $viewResolver->attach($themeResolver, 100);
 
-        // Resolve layout for selected style
+        // Resolve layout for selected style & switch style
         $sharedEventManager = $this->serviceLocator()->get('view')->getEventManager()->getSharedManager();
         $sharedEventManager->attach(
             'Zend\Stdlib\DispatchableInterface',
             MvcEvent::EVENT_DISPATCH,
-            function(MvcEvent $event) use (&$theme) {
-                $event->getViewModel()->setTemplate($theme->getActiveStyle()->getLayout());
-        }, -200);
+            function(MvcEvent $event) {
+                // Resolve style layout
+                $event->getViewModel()->setTemplate($this->getTheme()->getActiveStyle()->getLayout());
+        }, -100);
 
         return true;
+    }
+
+    public function getModuleConfig()
+    {
+        return $this->moduleConfig;
     }
 
     protected function getTheme()

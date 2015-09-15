@@ -21,7 +21,8 @@ use OmlZf2ThemeManager\Collection\StyleCollection;
 use OmlZf2ThemeManager\Collection\AssetCollection;
 
 use OmlZf2ThemeManager\Theme\Theme;
-use OmlZf2ThemeManager\Theme\Style;
+use OmlZf2ThemeManager\Theme\Style\Switcher as StyleSwitcher;
+use OmlZf2ThemeManager\Theme\Style\Style;
 use OmlZf2ThemeManager\Theme\Asset\Asset;
 
 class ThemeManagerService implements ServiceManagerAwareInterface
@@ -55,17 +56,26 @@ class ThemeManagerService implements ServiceManagerAwareInterface
     protected $serviceManager;
 
     /**
+     * @Todo: validate theme and styles from style switcher
      * Init
      */
     public function init()
     {
     	$appConfig = $this->getServiceManager()->get('config');
-    	$moduleConfig = new ModuleConfig($appConfig['oml-zf2-theme-manager']);
-        $configArray = $moduleConfig->getConfigArray();
-
+    	$this->moduleConfig = new ModuleConfig($appConfig['oml-zf2-theme-manager']);
+        $mergedConfig = $this->moduleConfig->getMergedConfig();
+        
+        $styleSwitcher = new StyleSwitcher($this->getServiceManager(), $this->moduleConfig);
+        $isValidStyleSwitcher = $styleSwitcher->isValid();
         $themeCollection = new ThemeCollection();
 
-        foreach ($configArray['themes'] as $themeConfig) {
+        $setActiveTheme = false;
+        $setActiveStyle = false;
+
+        foreach ($mergedConfig['themes'] as $themeConfig) {
+
+            $theme = new Theme($themeConfig);
+
             // Intitialize assets for current theme in the loop
             $assetCollection = new AssetCollection();
             foreach ($themeConfig['asset_collection'] as $identifier => $group) {
@@ -84,9 +94,21 @@ class ThemeManagerService implements ServiceManagerAwareInterface
 
                 $style = new Style($styleConfig);
 
-                // Set active style
-                if ($themeConfig['active_style'] == $styleConfig['identifier']) {
-                    $activeStyle = $style;
+                // Set active style if already not set
+                if (false === $setActiveStyle) {
+                    if (true === $isValidStyleSwitcher) {
+                        if ($styleSwitcher->getStyleIdentifier() === $styleConfig['identifier']) {
+                            $activeStyle = $style;
+                            $setActiveStyle = true;
+                            $theme->setActiveStyle($style);
+                        }
+                    } else {
+                        if ($themeConfig['active_style'] == $styleConfig['identifier']) {
+                            $activeStyle = $style;
+                            $setActiveStyle = true;
+                            $theme->setActiveStyle($style);
+                        }
+                    }
                 }
 
                 // Convert assets_ref to assets_collection
@@ -97,24 +119,33 @@ class ThemeManagerService implements ServiceManagerAwareInterface
                         $styleAssetCollection->add($asset);
                     }
                 }
+
                 $styleCollection->add($style);
                 $style->setAssetCollection($styleAssetCollection);
             }
 
-            $theme = new Theme($themeConfig);
-            $theme->setAssetCollection($assetCollection);
-            $theme->setActiveStyle($activeStyle);
-            $theme->setStyleCollection($styleCollection);
-
-            // Set Active Theme
-            if ($configArray['active_theme'] == $themeConfig['identifier']) {
-                $this->activeTheme = $theme;
+            // Set active style if already not set
+            if (false === $setActiveTheme) {
+                if (true === $isValidStyleSwitcher) {
+                    if ($styleSwitcher->getThemeIdentifier() === $themeConfig['identifier']) {
+                        $this->activeTheme = $theme;
+                        $setActiveTheme = true;
+                    }
+                } else {
+                    if ($mergedConfig['active_theme'] == $themeConfig['identifier']) {
+                        $this->activeTheme = $theme;
+                        $setActiveTheme = true;
+                    }
+                }
             }
 
+            $theme->setAssetCollection($assetCollection);
+            $theme->setStyleCollection($styleCollection);
             $themeCollection->add($theme);
         }
 
         $this->themeCollection = $themeCollection;
+
         return $this;
     }
 

@@ -27,6 +27,18 @@ return array(
                 'identifier' => 'bootstrap',
                 'theme_path' => __DIR__.'/../themes/bootstrap',
             )
+        ),
+        'style_switcher' => array(
+            'routes' => array(
+                'hoame' => array(
+                    'theme' => 'npm-dashboard',
+                    'style' => 'blue'
+                ),
+                'hoame' => array(
+                    'theme' => 'bootstrap',
+                    'style' => 'default'
+                )
+            )
         )
     )
 );

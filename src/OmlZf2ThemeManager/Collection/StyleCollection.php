@@ -9,7 +9,7 @@
 namespace OmlZf2ThemeManager\Collection;
 
 use OmlZf2ThemeManager\Collection\ArrayCollection;
-use OmlZf2ThemeManager\Theme\Style;
+use OmlZf2ThemeManager\Theme\Style\Style;
 
 class StyleCollection extends ArrayCollection
 {

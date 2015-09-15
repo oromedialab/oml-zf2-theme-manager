@@ -4,3 +4,7 @@ Theme Manager Module for Zend Framework 2
 
 - Supports Custom Theme Creation
 - Supports Custom Styles for the Theme
+
+# @Todo
+- Switch styles for controllers or modules
+- Load asset files form directory

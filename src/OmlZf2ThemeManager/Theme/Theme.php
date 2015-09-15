@@ -14,8 +14,7 @@ use OmlZf2ThemeManager\Collection\AssetCollection;
 use OmlZf2ThemeManager\Validator\StyleValidator;
 use OmlZf2ThemeManager\Validator\AssetValidator;
 
-use OmlZf2ThemeManager\Theme\Style;
-use OmlZf2ThemeManager\Theme\Asset;
+use OmlZf2ThemeManager\Theme\Style\Style;
 
 class Theme
 {

@@ -7,7 +7,7 @@
  * @package OmlZf2
  */
 
-namespace OmlZf2ThemeManager\Theme;
+namespace OmlZf2ThemeManager\Theme\Style;
 
 use OmlZf2ThemeManager\Collection\AssetCollection;
 
