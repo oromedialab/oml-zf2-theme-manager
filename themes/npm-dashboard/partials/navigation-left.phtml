@@ -1,0 +1,89 @@
+<div class="leftside-navigation">
+    <div class="container-fluid">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <img src="<?php echo $this->OmlZF2TM()->logo('256X256'); ?>" class="sidelogo">
+            </div>
+        </div>
+    </div>
+    <ul class="sidebar-menu" id="sidenav">
+        <li class="menuheader"></li>
+        <?php foreach ($this->container as $key => $page): ?>
+            <li>
+                <?php
+                    /**
+                     * ACL check.
+                     */
+                    if (!$page->isVisible() || !$this->navigation()->accept($page)) continue;
+                    /**
+                     * Logic to display active main-menu and display sub-menu.
+                     * 
+                     * 1. Display main-menu as active, if current route find a match in sub-page.
+                     * 2. Display sub-menu if current route find a match in sub-page.
+                     */
+                    $displaySubmenu = null;
+                    $mainMenuisActive = null;
+                    foreach ($page->getPages() as $subPage) {
+                        if (null === $displaySubmenu) {
+                            $displaySubmenu = $this->currentRequest()->get('controller') == $subPage->get('controller') ? 'in' : null;
+                        }
+                        if (null == $mainMenuisActive) {
+                            $mainMenuisActive = $this->currentRequest()->get('controller') == $subPage->get('controller') ? 'active' : null;
+                        }
+                    }
+                    $pagesWithoutSubmenu = array('home', 'version-index-index', 'agent-index-index', 'notification-index-index', 'document-index-index');
+                    if (null == $mainMenuisActive) {
+                        $mainMenuisActive = $this->currentRequest()->get('route') == $page->getRoute() ? 'active' : null;
+                    }
+                    /**
+                     * No sub-pages available for current route
+                     */
+                    $noSubpagesAvailable = in_array($page->getRoute(), $pagesWithoutSubmenu) ? true : false;
+                    /**
+                     * Always activate main menu if activeForRoute params exist and match with current request route.
+                     */
+                    if ($noSubpagesAvailable && isset($page->activeForRoutes) && is_array($page->activeForRoutes)) {
+                        foreach ($page->activeForRoutes as $route) {
+                            if ($route == $this->currentRequest()->get('route')) {
+                                $mainMenuisActive = 'active';
+                                break;
+                            }
+                        }
+                    }
+                    /**
+                     * Disable page click for all except pages without sub-menu.
+                     */
+                    $href = $noSubpagesAvailable ? $page->getHref() : 'javascript:void(0);';
+                    /**
+                     * Add data attributes for sub-pages.
+                     */
+                    $dataAttribute  = 'data-toggle="collapse" ';
+                    $dataAttribute .= 'data-target="#'.$page->getRoute().'" ';
+                    $dataAttribute .= 'data-parent="#sidenav" ';
+                ?>
+                <a href="<?php echo $href; ?>" class="<?php echo $mainMenuisActive; ?>" <?php echo $dataAttribute; ?>>
+                    <span class="sideborderleft"></span>
+                    <span class="figure"><i class="fa <?php echo $page->icon; ?>"></i></span>
+                    <span class="text"><?php echo $this->translate($page->getLabel()); ?></span>
+                </a>
+                <?php if($page->hasPages()): ?>
+                    <ul id="<?php echo $page->getRoute(); ?>" class="submenu collapse <?php echo $displaySubmenu; ?>">
+                    <?php
+                        foreach ($page->getPages() as $subPage):
+                        /**
+                        * Add active class if current route name matches current route in loop.
+                        */
+                        $subMenuisActive = $this->currentRequest()->get('controller') == $subPage->get('controller') ? 'active' : '';
+                    ?>
+                        <li class="<?php echo $subMenuisActive; ?>">
+                            <a href="<?php echo $subPage->getHref(); ?>">
+                                <span class="text"><?php echo $this->translate($subPage->getLabel()); ?></span>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>

@@ -23,12 +23,12 @@
         <section id="container">
             <aside>
                 <div id="sidebar" class="nav-collapse">
-                    <?php echo $this->placeholder('omlZF2TM'); ?>
-                    <?php //echo $this->navigation('navigation')->menu()->setPartial('navigation/left'); ?>
+                    <?php echo $this->navigation('navigation')->menu()->setPartial('navigation-left'); ?>
                 </div>
             </aside>
             <section id="main-content">
                 <section class="wrapper">
+                    <?php echo $this->placeholder('toolbar'); ?>
                     <?php //echo $this->partial('toolbar'); ?>
                     <div class="wrapper_widget">
                         <div class="menu"></div>
@@ -37,13 +37,13 @@
                                 <div class="col-md-12">
                                     <div class="widgetitle">
                                         <div class="row">
-                                            <?php echo $this->placeholder('widgets/page-info'); ?>
-                                            <?php echo $this->placeholder('widgets/action-menu'); ?>
+                                            <?php echo $this->placeholder('page-info'); ?>
+                                            <?php echo $this->placeholder('action-menu'); ?>
                                          </div>
                                     </div>
                                 </div>
                             </div>
-                            <?php echo $this->placeholder('widgets/breadcrumb'); ?>
+                            <?php echo $this->placeholder('breadcrumb'); ?>
                         </div>
                         <div class="container-fluid margin_bottom_xlarge margin_top_small">
                             <?php echo $this->content; ?>

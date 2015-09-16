@@ -9,36 +9,14 @@
 namespace OmlZf2ThemeManager;
 
 return array(
+    'service_manager' => array(
+        'factories' => array(
+            'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory'
+        )
+    ),
     'view_helpers' => array(
         'invokables' => array(
             'omlZF2TM' => 'OmlZf2ThemeManager\View\Helper\OmlZf2ThemeManager'
-        )
-    ),
-    'oml-zf2-theme-manager' => array(
-        'active_theme'  => 'npm-dashboard',
-        'themes' => array(
-            array(
-                'name' => 'NPM Dashboard',
-                'identifier' => 'npm-dashboard',
-                'theme_path' => __DIR__.'/../themes/npm-dashboard',
-            ),
-            array(
-                'name' => 'Default Bootstrap Theme for ZF2',
-                'identifier' => 'bootstrap',
-                'theme_path' => __DIR__.'/../themes/bootstrap',
-            )
-        ),
-        'style_switcher' => array(
-            'routes' => array(
-                'hoame' => array(
-                    'theme' => 'npm-dashboard',
-                    'style' => 'blue'
-                ),
-                'hoame' => array(
-                    'theme' => 'bootstrap',
-                    'style' => 'default'
-                )
-            )
         )
     )
 );

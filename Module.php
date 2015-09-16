@@ -4,6 +4,7 @@ namespace OmlZf2ThemeManager;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Zend\ServiceManager\ServiceManager;
 
 class Module
 {
@@ -15,11 +16,18 @@ class Module
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
         $serviceManager->get('omlzf2.theme.manager.factory');
+        // echo '<pre>';
+        // print_r($serviceManager->get('config'));
+        // die;
     }
 
     public function getConfig()
     {
-        return include __DIR__ . '/config/module.config.php';
+        return array_merge_recursive(
+            include __DIR__ . '/config/module.config.php',
+            include __DIR__ . '/config/navigation.config.php',
+            include __DIR__ . '/config/theme.config.php'
+        );
     }
 
     public function getAutoloaderConfig()

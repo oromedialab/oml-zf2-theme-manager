@@ -11,8 +11,12 @@ return array(
         'layout/layout'        => __DIR__ . '/layout/layout.phtml',
         'layout/minimal-light' => __DIR__ . '/layout/minimal-light.phtml',
         'layout/minimal-dark'  => __DIR__ . '/layout/minimal-dark.phtml',
-        'error/404'     => __DIR__ . '/error/404.phtml',
-        'error/index'   => __DIR__ . '/error/index.phtml',
+        'navigation-left'      => __DIR__ . '/partials/navigation-left.phtml',
+        'action-menu'          => __DIR__ . '/partials/action-menu.phmtl',
+        'page-info'            => __DIR__ . '/partials/page-info.phtml',
+        'toolbar'              => __DIR__ . '/partials/toolbar.phtml',
+        'error/404'            => __DIR__ . '/error/404.phtml',
+        'error/index'          => __DIR__ . '/error/index.phtml',
     ),
     'template_path_stack' => array(
         'npm-dashboard'   => __DIR__
